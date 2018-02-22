@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+    <Platform>AnyCPU</Platform>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release</OutputPath>
+    <TargetFrameworkDirectory>C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild-frameworks\MonoAndroid\v1.0;C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild-frameworks\MonoAndroid\v1.0\Facades;C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild-frameworks\MonoAndroid\v7.0;C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild-frameworks\MonoAndroid\v2.3</TargetFrameworkDirectory>
+  </PropertyGroup>
+  <Import Project="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Target Name="Build">
+    <ResolveAssemblies Assemblies="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\GWallet.Backend.NetStandard.dll;C:\Users\DigitasAdmin\Documents\Embeddinator-4000\external\Xamarin.Android\lib\xbuild-frameworks\MonoAndroid\v2.3\Mono.Android.Export.dll" LinkMode="SdkOnly" ReferenceAssembliesDirectory="$(TargetFrameworkDirectory)">
+      <Output TaskParameter="ResolvedAssemblies" ItemName="ResolvedAssemblies" />
+      <Output TaskParameter="ResolvedUserAssemblies" ItemName="ResolvedUserAssemblies" />
+      <Output TaskParameter="ResolvedFrameworkAssemblies" ItemName="ResolvedFrameworkAssemblies" />
+    </ResolveAssemblies>
+    <GenerateJavaStubs ResolvedAssemblies="@(ResolvedAssemblies)" ResolvedUserAssemblies="@(ResolvedUserAssemblies)" ManifestTemplate="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\AndroidManifest.xml" MergedAndroidManifestOutput="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\AndroidManifest.xml" AndroidSdkPlatform="24" AndroidSdkDir="C:\Program Files (x86)\Android\android-sdk" OutputDirectory="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet" ResourceDirectory="$(MonoAndroidResDirIntermediate)" AcwMapFile="$(MonoAndroidIntermediate)acw-map.txt" />
+    <ResolveLibraryProjectImports Assemblies="@(ResolvedUserAssemblies)" AssemblyIdentityMapFile="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\lp\map.cache" CacheFile="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\libraryprojectimports.cache" UseShortFileNames="False" ImportsDirectory="jl" OutputDirectory="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj" OutputImportDirectory="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\lp">
+      <Output TaskParameter="ResolvedAssetDirectories" ItemName="ResolvedAssetDirectories" />
+      <Output TaskParameter="ResolvedResourceDirectories" ItemName="ResolvedResourceDirectories" />
+    </ResolveLibraryProjectImports>
+    <GetAdditionalResourcesFromAssemblies AndroidSdkDirectory="C:\Program Files (x86)\Android\android-sdk" AndroidNdkDirectory="C:\ProgramData\Microsoft\AndroidNDK64\android-ndk-r13b" Assemblies="@(ResolvedUserAssemblies)" CacheFile="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\resourcepaths.cache" DesignTimeBuild="False" />
+    <ItemGroup>
+      <AndroidAsset Include="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\lp\GWallet.Backend.NetStandard\jl\assets\**\*" />
+      <AndroidJavaSource Include="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\lp\GWallet.Backend.NetStandard\jl\java\**\*.java" />
+      <AndroidResource Include="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\obj\lp\GWallet.Backend.NetStandard\jl\res\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(AndroidAsset)" DestinationFiles="@(AndroidAsset->'C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\assets\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(AndroidResource)" DestinationFiles="@(AndroidResource->'C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\res\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(AndroidJavaSource)" DestinationFiles="@(AndroidJavaSource->'C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\src\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <XmlPoke XmlInputPath="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\AndroidManifest.xml" Query="/manifest/@package" Value="gwallet_backend_netstandard" />
+    <XmlPoke XmlInputPath="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="/manifest/application/provider/@android:name" Value="mono.embeddinator.AndroidRuntimeProvider" />
+    <XmlPoke XmlInputPath="C:\Users\DigitasAdmin\Documents\Embeddinator-4000\build\lib\Debug\gwallet\android\AndroidManifest.xml" Namespaces="&lt;Namespace Prefix='android' Uri='http://schemas.android.com/apk/res/android' /&gt;" Query="/manifest/application/provider/@android:authorities" Value="${applicationId}.mono.embeddinator.AndroidRuntimeProvider.__mono_init__" />
+  </Target>
+</Project>
